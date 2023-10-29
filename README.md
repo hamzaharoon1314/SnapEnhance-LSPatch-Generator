@@ -13,14 +13,9 @@ This repository contains a GitHub Actions workflow for generating a Snapchat APK
 
 1. **Fork this Repository**: Click the "Fork" button to create your copy of this repository.
 
-2. **Set up Secrets**: In your forked repository, go to "Settings" > "Secrets" and add the following secrets:
+2. **Push Trigger**: The workflow is triggered when you push changes to your repository in a file named `push-here.md`. You can adjust this path in the workflow configuration (`on` section).
 
-   - `SNAP_APK_URL`: The URL for the Snap APK. Download the latest or your preferred Snap APK from [APKMirror](https://www.apkmirror.com/apk/snap-inc/snapchat/) and upload it as a GitHub Release and use the download link of the apk in that release as the Secret URL.
-     ![SNAP APK Image](REDME_IMG/snapapk.png)  
-
-3. **Trigger the Workflow**: Any push (Changing/Adding/Deleting a file in your repo) to your repository will trigger the GitHub Actions workflow. The workflow will download the required files, run the `java -jar lspatch.jar` command, and create a public release with the modified APK.
-
-4. **Download the Release**: After the workflow completes, you can find the modified APK under the "Releases" tab.
+3. **Download the Release**: After the workflow completes, you can find the modified APK under the "Releases" tab.
 ![MOD APK Image](REDME_IMG/modapk.png) 
 ## Customization
 
