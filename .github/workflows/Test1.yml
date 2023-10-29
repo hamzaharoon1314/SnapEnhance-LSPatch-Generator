@@ -13,7 +13,11 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
+    - name: Download APK File
+      run: |
+        mkdir -p apk
+        curl -L -o apk/snap.apk https://github.com/hamzaharoon1314/SnapEnhanceModGen/releases/download/Original/snap_12.57.0.55.apk
+
     - name: Run Java Command
       run: |
-        java -jar lspatch.jar -m core.apk -f -l 2 -v https://github.com/hamzaharoon1314/SnapEnhanceModGen/releases/download/Original/snap_12.57.0.55.apk
-      
+        java -jar lspatch.jar -m core.apk -f -l 2 -v ./apk/snap.apk
