@@ -6,13 +6,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    
     steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16
+    
     - name: Check out code
       uses: actions/checkout@v2
 
     - name: Download required files
       run: |
-        # Replace these URL placeholders with the actual download links
         curl -L -o SnapEnhance.apk ${{ secrets.SNAP_ENHANCE_APK_URL }}
         curl -L -o Snap.apk ${{ secrets.SNAP_APK_URL }}
       env:
