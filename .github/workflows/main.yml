@@ -18,17 +18,41 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq curl
+        shell: bash
+
+      - name: Fetch latest release information
+        id: fetch-release
+        run: |
+          repo_owner="rhunk"
+          repo_name="SnapEnhance"
+          api_url="https://api.github.com/repos/${repo_owner}/${repo_name}/releases/latest"
+          release_info=$(curl -s "$api_url")
+          echo "::set-output name=release_id::$(echo $release_info | jq -r '.id')"
+          echo "::set-output name=release_tag_name::$(echo $release_info | jq -r '.tag_name')"
+          echo "::set-output name=asset_url::$(echo $release_info | jq -r '.assets[] | select(.name | endswith(".apk")) | .browser_download_url')"
+        shell: bash
+
+      - name: Download the latest APK
+        run: |
+          release_id="${{ steps.fetch-release.outputs.release_id }}"
+          asset_url="${{ steps.fetch-release.outputs.asset_url }}"
+          release_tag_name="${{ steps.fetch-release.outputs.release_tag_name }}"
+          wget "$asset_url" -O "$GITHUB_WORKSPACE/latest-snapenhance-${release_tag_name}.apk"
+        shell: bash
+
       - name: Download required files
         run: |
-          curl -L -o SnapEnhance.apk ${{ secrets.SNAP_ENHANCE_APK_URL }}
           curl -L -o Snap.apk ${{ secrets.SNAP_APK_URL }}
         env:
-          SNAP_ENHANCE_APK_URL: ${{ secrets.SNAP_ENHANCE_APK_URL }}
           SNAP_APK_URL: ${{ secrets.SNAP_APK_URL }}
 
       - name: Run the command
         run: |
-          java -jar lspatch.jar -m SnapEnhance.apk -f -l 2 -v Snap.apk
+          java -jar lspatch.jar -m latest-snapenhance-${release_tag_name}.apk -f -l 2 -v Snap.apk
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
