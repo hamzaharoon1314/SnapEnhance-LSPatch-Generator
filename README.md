@@ -1,10 +1,10 @@
 # SnapEnhanceModGen
 
-This repository contains a GitHub Actions workflow for generating a Snapchat APK by using the [SnapEnhance LSPosed Module](https://github.com/rhunk/SnapEnhance) and creating a public release.
+This repository contains a GitHub Actions workflow for generating a Snapchat APK by using the [SnapEnhance Module](https://github.com/rhunk/SnapEnhance) and creating a public release.
 
 ## How to get MOD APK link
 1. Go to the Release tab and download/install the Snap-360-lspatched APK
-2. Install the latest [SnapEnhance apk](https://github.com/rhunk/SnapEnhance/releases/latest) (If you don´t know what version (armv8 or armv7) to download check out [this app](https://play.google.com/store/apps/details?id=com.abs.cpu_z_advance&hl=de&gl=US) and go into the CPU tab it will show you which version your phone supports)
+2. Install the latest [SnapEnhance apk](https://github.com/rhunk/SnapEnhance/releases/latest) (If you don't know what version (armv8 or armv7) to download check out [this app](https://play.google.com/store/apps/details?id=com.abs.cpu_z_advance&hl=de&gl=US) and go into the CPU tab it will show you which version your phone supports)
 3. Done - ~have fun
 ![MOD APK Image](REDME_IMG/modapk.png)   
 
