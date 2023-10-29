@@ -1,4 +1,4 @@
-name: Custom GitHub Action
+name: SnapEnhanceModGen GitHub Action
 
 on:
   push:
