@@ -23,11 +23,6 @@ jobs:
       run: |
         java -jar lspatch.jar -m SnapEnhance.apk -f -l 2 -v Snap.apk
 
-    - name: Set up Java
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
-
     - name: Create Release
       id: create_release
       run: |
