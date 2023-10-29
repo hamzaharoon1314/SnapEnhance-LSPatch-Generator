@@ -1,4 +1,4 @@
-name: SnapEnhanceModGen GitHub Action
+name: SnapEnhanceModGen Action
 
 on:
   push:
@@ -24,6 +24,25 @@ jobs:
           sudo apt-get install -y jq curl
         shell: bash
 
+      - name: Install unzip
+        run: sudo apt-get install unzip -y
+
+      - name: Install pup
+        run: |
+         wget https://github.com/ericchiang/pup/releases/download/v0.4.0/pup_v0.4.0_linux_amd64.zip -O pup.zip
+         unzip pup.zip
+         chmod +x pup
+         sudo mv pup /usr/local/bin/
+        working-directory: . 
+
+      - name: Grant execute permissions to script
+        run: chmod +x script.sh
+        working-directory: .  
+
+      - name: Run APK Download Script
+        run: |
+         ./script.sh  
+      
       - name: Fetch latest release information
         id: fetch-release
         run: |
@@ -57,21 +76,15 @@ jobs:
           wget "$asset_url" -O "$GITHUB_WORKSPACE/latest-snapenhance-${release_tag_name}.apk"
         shell: bash
 
-      - name: Download required files
-        run: |
-          curl -L -o Snap.apk ${{ secrets.SNAP_APK_URL }}
-        env:
-          SNAP_APK_URL: ${{ secrets.SNAP_APK_URL }}
-
       - name: Run the command
         run: |
-          java -jar lspatch.jar -m latest-snapenhance-${release_tag_name}.apk -f -l 2 -v Snap.apk
+          java -jar lspatch.jar -m latest-snapenhance-${release_tag_name}.apk -f -l 2 -v snap.apk
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: Snap-360-lspatched.apk
-          path: ./Snap-360-lspatched.apk
+          path: ./snap-360-lspatched.apk
 
       - name: Check if the release already exists
         id: check_release
@@ -88,5 +101,5 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          files: Snap-360-lspatched.apk
+          files: snap-360-lspatched.apk
           tag_name: ${{ env.RELEASE_VERSION }}
