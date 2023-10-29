@@ -31,16 +31,29 @@ jobs:
           repo_name="SnapEnhance"
           api_url="https://api.github.com/repos/${repo_owner}/${repo_name}/releases/latest"
           release_info=$(curl -s "$api_url")
-          echo "::set-output name=release_id::$(echo $release_info | jq -r '.id')"
-          echo "::set-output name=release_tag_name::$(echo $release_info | jq -r '.tag_name')"
-          echo "::set-output name=asset_url::$(echo $release_info | jq -r '.assets[] | select(.name | endswith(".apk")) | .browser_download_url')"
+          release_id=$(echo $release_info | jq -r '.id')
+          release_tag_name=$(echo $release_info | jq -r '.tag_name')
+
+          # Find the asset URL for APK files
+          asset_url=""
+          for asset in $(echo $release_info | jq -c '.assets[]'); do
+            asset_name=$(echo $asset | jq -r '.name')
+            if [[ $asset_name == *"armv8"* && $asset_name == *".apk" ]]; then
+              asset_url=$(echo $asset | jq -r '.browser_download_url')
+              break
+            fi
+          done
+
+          echo "release_id=$release_id" >> $GITHUB_ENV
+          echo "release_tag_name=$release_tag_name" >> $GITHUB_ENV
+          echo "asset_url=$asset_url" >> $GITHUB_ENV
         shell: bash
 
       - name: Download the latest APK
         run: |
-          release_id="${{ steps.fetch-release.outputs.release_id }}"
-          asset_url="${{ steps.fetch-release.outputs.asset_url }}"
-          release_tag_name="${{ steps.fetch-release.outputs.release_tag_name }}"
+          release_id="${{ env.release_id }}"
+          asset_url="${{ env.asset_url }}"
+          release_tag_name="${{ env.release_tag_name }}"
           wget "$asset_url" -O "$GITHUB_WORKSPACE/latest-snapenhance-${release_tag_name}.apk"
         shell: bash
 
