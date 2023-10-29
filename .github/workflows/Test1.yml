@@ -1,29 +1,29 @@
-name: Run Command
+name: Custom GitHub Action
 
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 jobs:
-  run-command:
+  build:
     runs-on: ubuntu-latest
 
     steps:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - name: Download APK File
-      run: |
-        mkdir -p apk
-        curl -L -o apk/snap.apk https://github.com/hamzaharoon1314/SnapEnhanceModGen/releases/download/Original/snap_12.57.0.55.apk
-
-    - name: Run Java Command
-      run: |
-        java -jar lspatch.jar -m core.apk -f -l 2 -v ./apk/snap.apk
-
-    - name: Upload Output APK
-      uses: actions/upload-artifact@v2
+    - name: Set up Java
+      uses: actions/setup-java@v2
       with:
-        name: output-apk
-        path: snap-360-lspatched.apk
+        java-version: '11'
+
+    - name: Download required files
+      run: |
+        # Replace these URL placeholders with the actual download links
+        curl -L -o SnapEnhance.apk ${{ secrets.SNAP_ENHANCE_APK_URL }}
+        curl -L -o Snap.apk ${{ secrets.SNAP_APK_URL }}
+      env:
+        SNAP_ENHANCE_APK_URL: ${{ secrets.SNAP_ENHANCE_APK_URL }}
+        SNAP_APK_URL: ${{ secrets.SNAP_APK_URL }}
+
+    - name: Run the command
+      run: |
+        java -jar lspatch.jar -m SnapEnhance.apk -f -l 2 -v Snap.apk
