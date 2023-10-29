@@ -1,0 +1,33 @@
+name: Auto Update Workflow
+
+on:
+  push:
+    branches:
+      - v2
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Download Latest Release
+      id: download
+      run: |
+        latest_release_url=$(curl -s https://api.github.com/repos/rhunk/SnapEnhance/releases/latest | jq -r '.assets[0].browser_download_url')
+        curl -o latest-snapenhance.apk -L $latest_release_url
+        echo "Downloaded the latest release"
+        ls -lh latest-snapenhance.apk
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        API_TOKEN: ${{ secrets.API_TOKEN }} # If your GitHub repository is private, you may need to provide a PAT.
+
+    - name: Upload Release to GitHub
+      id: upload-release
+      uses: actions/upload-release@v1
+      with:
+        files: ./latest-snapenhance.apk
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
