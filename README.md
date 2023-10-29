@@ -13,7 +13,7 @@ This repository contains a GitHub Actions workflow for generating a Snapchat APK
 
 1. **Fork this Repository**: Click the "Fork" button to create your copy of this repository.
 
-2. **Push Trigger**: The workflow is triggered when you push changes to your repository in a file named `push-here.md`. You can adjust this path in the workflow configuration (`on` section).
+2. **Push Trigger**: The workflow is triggered when push changes in a file `push-here.md`. You can adjust this path in the workflow configuration (`on` section).
 
 3. **Download the Release**: After the workflow completes, you can find the modified APK under the "Releases" tab.
 ![MOD APK Image](REDME_IMG/modapk.png) 
