@@ -23,14 +23,23 @@ jobs:
       run: |
         java -jar lspatch.jar -m SnapEnhance.apk -f -l 2 -v Snap.apk
 
+    - name: Set up Java
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
     - name: Create Release
       id: create_release
-      uses: softprops/action-gh-release@v1
+      run: |
+        # Replace this with the command to fetch your generated APK file
+        wget -O Snap-360-lspatched.apk https://example.com/path/to/Snap-360-lspatched.apk
+      continue-on-error: true
+
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
       with:
-        files: |
-          Snap-360-lspatched.apk
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        tag_name: v1.0  # Replace with your desired tag/version
-        release_name: Release 1.0  # Replace with your desired release name
-        draft: false
-        prerelease: false
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./Snap-360-lspatched.apk
+        asset_name: Snap-360-lspatched.apk
+        asset_content_type: application/vnd.android.package-archive
