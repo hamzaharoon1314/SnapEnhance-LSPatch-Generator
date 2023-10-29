@@ -8,8 +8,8 @@ This repository contains a GitHub Actions workflow for generating a modified Sna
 
 2. **Set up Secrets**: In your forked repository, go to "Settings" > "Secrets" and add the following secrets:
 
-   - `SNAP_ENHANCE_APK_URL`: The URL for the SnapEnhance APK.
-   - `SNAP_APK_URL`: The URL for the Snap APK.
+   - `SNAP_ENHANCE_APK_URL`: The URL for the SnapEnhance APK. https://github.com/rhunk/SnapEnhance
+   - `SNAP_APK_URL`: The URL for the Snap APK. https://www.apkmirror.com/apk/snap-inc/snapchat/
 
 3. **Trigger the Workflow**: Any push to your repository will trigger the GitHub Actions workflow. The workflow will download the required files, run the `java -jar lspatch.jar` command, and create a public release with the modified APK.
 
