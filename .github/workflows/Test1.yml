@@ -21,3 +21,9 @@ jobs:
     - name: Run Java Command
       run: |
         java -jar lspatch.jar -m core.apk -f -l 2 -v ./apk/snap.apk
+
+    - name: Upload Output APK
+      uses: actions/upload-artifact@v2
+      with:
+        name: output-apk
+        path: snap-360-lspatched.apk
