@@ -33,10 +33,5 @@ jobs:
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
-        files: |
-          Snap-360-lspatched.apk
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        tag_name: v1.0  # Replace with your desired tag/version
-        release_name: Release 1.0  # Replace with your desired release name
-        draft: false
-        prerelease: false
+        files: Snap-360-lspatched.apk
+        tag_name: v0.0
