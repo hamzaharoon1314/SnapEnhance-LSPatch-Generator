@@ -1,0 +1,19 @@
+name: Run Command
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-command:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Run Java Command
+      run: |
+        java -jar lspatch.jar -m core.apk -f -l 2 -v https://github.com/hamzaharoon1314/SnapEnhanceModGen/releases/download/Original/snap_12.57.0.55.apk
+      
