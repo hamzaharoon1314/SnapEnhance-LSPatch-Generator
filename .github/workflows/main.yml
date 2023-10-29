@@ -1,42 +1,57 @@
 name: Custom GitHub Action
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    
     steps:
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: 16
-    
-    - name: Check out code
-      uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
 
-    - name: Download required files
-      run: |
-        curl -L -o SnapEnhance.apk ${{ secrets.SNAP_ENHANCE_APK_URL }}
-        curl -L -o Snap.apk ${{ secrets.SNAP_APK_URL }}
-      env:
-        SNAP_ENHANCE_APK_URL: ${{ secrets.SNAP_ENHANCE_APK_URL }}
-        SNAP_APK_URL: ${{ secrets.SNAP_APK_URL }}
+      - name: Check out code
+        uses: actions/checkout@v2
 
-    - name: Run the command
-      run: |
-        java -jar lspatch.jar -m SnapEnhance.apk -f -l 2 -v Snap.apk
+      - name: Download required files
+        run: |
+          curl -L -o SnapEnhance.apk ${{ secrets.SNAP_ENHANCE_APK_URL }}
+          curl -L -o Snap.apk ${{ secrets.SNAP_APK_URL }}
+        env:
+          SNAP_ENHANCE_APK_URL: ${{ secrets.SNAP_ENHANCE_APK_URL }}
+          SNAP_APK_URL: ${{ secrets.SNAP_APK_URL }}
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: Snap-360-lspatched.apk
-        path: ./Snap-360-lspatched.apk
+      - name: Run the command
+        run: |
+          java -jar lspatch.jar -m SnapEnhance.apk -f -l 2 -v Snap.apk
 
-    - name: Create Release
-      id: create_release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: Snap-360-lspatched.apk
-        tag_name: v0.0
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Snap-360-lspatched.apk
+          path: ./Snap-360-lspatched.apk
+
+      - name: Check if the release already exists
+        id: check_release
+        run: |
+          RELEASE_VERSION=v0.0  # Change this to the initial release version
+          if curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/releases/tags/$RELEASE_VERSION; then
+            echo "Release $RELEASE_VERSION already exists."
+            # Increment the release version
+            RELEASE_VERSION=$(echo $RELEASE_VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./')
+          fi
+          echo "::set-output name=release_version::$RELEASE_VERSION"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create or Update Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: Snap-360-lspatched.apk
+          tag_name: ${{ steps.check_release.outputs.release_version }}
