@@ -3,7 +3,7 @@
 This repository contains a GitHub Actions workflow for generating a modified Snap-360-lspatched APK and creating a public release.
 
 ## How to get MOD APK link
-1. Go to the Release tab and download/install the mod apk
+1. Go to the Release tab and download/install the Snap-360-lspatched APK
 2. Install the latest SnapEnhance apk
 3. Done - ~have fun
 ![MOD APK Image](REDME_IMG/modapk.png)   
