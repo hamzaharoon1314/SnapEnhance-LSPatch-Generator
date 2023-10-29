@@ -2,12 +2,24 @@
 
 This repository contains a GitHub Actions workflow for generating a Snapchat APK by using the [SnapEnhance Module](https://github.com/rhunk/SnapEnhance) and creating a public release.
 
-## How to get MOD APK link
-1. Install the latest [Snapchat MOD apk](https://github.com/hamzaharoon1314/SnapEnhanceModGen/releases)
+## Download Patch APK
+1. Install the latest [Snapchat mod apk](https://github.com/hamzaharoon1314/SnapEnhanceModGen/releases)
 2. Install the latest [SnapEnhance apk](https://github.com/rhunk/SnapEnhance/releases/latest)
    - (If you don't know what version (armv8 or armv7) to download, check out [this app](https://play.google.com/store/apps/details?id=com.abs.cpu_z_advance&hl=de&gl=US) and go into the CPU tab it will show you which version your phone supports)
 4. Done - ~have fun.
 ![MOD APK Image](REDME_IMG/modapk.png)   
+
+# What's the working of Action
+
+This GitHub Actions workflow automates the creation of a Snapchat Patch for Non-Root. Here's how it works:
+
+1. **Snapchat Download**: The action downloads the latest stable version of Snapchat from APKMirror.
+
+2. **SnapEnhance Download**: It also fetches the latest stable version of SnapEnhance from the original repository.
+
+3. **Patch Build**: The action then builds the patch version of Snapchat.
+
+4. **Upload to Release**: Finally, it uploads the patch to the GitHub repository's release tab.
 
 ## Instructions for own Setup
 
