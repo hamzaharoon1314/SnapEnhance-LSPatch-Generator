@@ -10,11 +10,6 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - name: Set up Java
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
-
     - name: Download required files
       run: |
         # Replace these URL placeholders with the actual download links
