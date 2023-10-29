@@ -6,6 +6,7 @@ This repository contains a GitHub Actions workflow for generating a modified Sna
 1. Go to the Release tab and download/install the mod apk
 2. Install the latest SnapEnhance apk
 3. Done - ~have fun
+![MOD APK Image](REDME_IMG/modapk.png)   
 
 ## Instructions for own Setup
 
@@ -15,12 +16,13 @@ This repository contains a GitHub Actions workflow for generating a modified Sna
 
    - `SNAP_ENHANCE_APK_URL`: The URL for the SnapEnhance APK. https://github.com/rhunk/SnapEnhance
    - `SNAP_APK_URL`: The URL for the Snap APK. https://www.apkmirror.com/apk/snap-inc/snapchat/
+     ![SNAP APK Image](REDME_IMG/snapapk.png)  
    - You need to provide the direct link of apks so you can upload the Snapchat.apk on GitHub released tab and than use that link
 
 3. **Trigger the Workflow**: Any push to your repository will trigger the GitHub Actions workflow. The workflow will download the required files, run the `java -jar lspatch.jar` command, and create a public release with the modified APK.
 
 4. **Download the Release**: After the workflow completes, you can find the modified APK under the "Releases" tab.
-
+![MOD APK Image](REDME_IMG/modapk.png) 
 ## Customization
 
 - You can customize the release tag and name by editing the `.github/workflows/main.yml` file.
