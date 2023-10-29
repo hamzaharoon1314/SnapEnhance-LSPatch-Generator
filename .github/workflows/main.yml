@@ -2,8 +2,8 @@ name: SnapEnhanceModGen GitHub Action
 
 on:
   push:
-    branches:
-      - main
+    paths:
+      - 'push-here.md'
 
 jobs:
   build:
