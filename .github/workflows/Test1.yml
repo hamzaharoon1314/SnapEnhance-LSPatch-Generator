@@ -23,8 +23,14 @@ jobs:
       run: |
         java -jar lspatch.jar -m SnapEnhance.apk -f -l 2 -v Snap.apk
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v2
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
       with:
-        name: output-apk
-        path: ./Snap-360-lspatched.apk
+        files: |
+          Snap-360-lspatched.apk
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        tag_name: v1.0  # Replace with your desired tag/version
+        release_name: Release 1.0  # Replace with your desired release name
+        draft: false
+        prerelease: false
