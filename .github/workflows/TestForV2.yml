@@ -51,8 +51,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: snap-360-lspatched-v2.apk
-          path: ./snap-360-lspatched.apk
+          name: snapv-360-lspatched-v2.apk
+          path: ./snapv-360-lspatched.apk
      
       
       - name: Grant execute permissions to script latest version
