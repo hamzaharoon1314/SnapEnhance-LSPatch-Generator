@@ -35,7 +35,27 @@ jobs:
          sudo mv pup /usr/local/bin/
         working-directory: . 
 
-      - name: Grant execute permissions to script
+      - name: Grant execute permissions to script specific Version
+        run: chmod +x scriptv.sh
+        working-directory: .  
+
+      - name: Run APK Download Script
+        run: |
+         ./scriptv.sh  
+      
+      
+      - name: Run the command
+        run: |
+          java -jar lspatch.jar -m core.apk -f -l 2 -v snapv.apk
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: snap-360-lspatched-v2.apk
+          path: ./snap-360-lspatched.apk
+     
+      
+      - name: Grant execute permissions to script latest version
         run: chmod +x script.sh
         working-directory: .  
 
@@ -52,4 +72,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: snap-360-lspatched-v2.apk
-          path: ./snap-360-lspatched.apk
+          path: ./snap-360-lspatched.apk  
