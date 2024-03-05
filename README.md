@@ -11,7 +11,16 @@ SnapEnhance is an Xposed mod that enhances your Snapchat experience.<br/><br/> T
 
 This repository contains a GitHub Actions workflow for generating a Snapchat APK by using the [SnapEnhance Module](https://github.com/rhunk/SnapEnhance) and creating a public release.
 
-## First Time Instructions -  How to Install module/snap
+# | METHOD FOR V2 OF SNAPENHANCE - BETA
+This solution provides a non-root method for enhancing Snapchat without needing to manually patch it every time there's an update. It automates the process by downloading the APK and patching it for you.
+### How to Use:
+1. **Install SnapFirst**: Install the SnapFirst app and login to your Snapchat account.
+2. **Install SnapEnhance**: Install V2 fo it.
+3. **Update SnapLatest**: Use SnapFirst to update Snapchat to the latest version, and you're done!
+### Get Started:
+Download Both APK for SnapEnhance V2 from [here](https://github.com/hamzaharoon1314/SnapEnhance-LSPatch-Generator/releases/tag/v0.2).
+
+## First Time Instructions | METHOD FOR V1 OF SNAPENHANCE
 1. Install the latest [snap-360-lspatched.apk](https://github.com/hamzaharoon1314/SnapEnhance-LSPatch-Generator/releases/latest)
 2. Install the latest [SnapEnhance apk](https://github.com/rhunk/SnapEnhance/releases/latest)
    - (If you don't know what version (armv8 or armv7) to download, check out [this app](https://play.google.com/store/apps/details?id=com.abs.cpu_z_advance&hl=de&gl=US) and go into the CPU tab it will show you which version your phone supports)
