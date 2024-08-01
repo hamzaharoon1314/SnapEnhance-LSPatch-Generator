@@ -2,7 +2,7 @@ name: SnapEnhanceModGen Schedule
 
 on:
     schedule:
-      - cron: '45 11,23 * * *'
+      # - cron: '45 11,23 * * *'
 
 jobs:
   build:
